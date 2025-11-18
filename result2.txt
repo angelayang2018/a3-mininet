@@ -33,16 +33,26 @@ Results from command: sudo ovs-ofctl dump-flows s1
 cookie=0x0, duration=52.294s, table=0, n_packets=39, n_bytes=4468, priority=0 actions=CONTROLLER:128
 
 
+
+################################################
+Adding flows
+################################################
+sudo ovs-ofctl add-flow s1 "in_port=2,actions=drop"
+sudo ovs-ofctl add-flow s1 "in_port=1,actions=output:3"
+sudo ovs-ofctl add-flow s1 "in_port=3,actions=output:1"
+
+
 ################################################
 Results of pings from h1 to h3
 ################################################
 h1 ping -c 1 h3
 PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
-64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=125 ms
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=8.93 ms
 
 --- 10.0.0.3 ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 124.675/124.675/124.675/0.000 ms
+rtt min/avg/max/mdev = 8.933/8.933/8.933/0.000 ms
+
 
 
 ################################################
@@ -50,8 +60,7 @@ Results of pings from h2 to h3
 ################################################
 h2 ping -c 1 h3
 PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
-64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=106 ms
+From 10.0.0.2 icmp_seq=1 Destination Host Unreachable
 
 --- 10.0.0.3 ping statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 105.913/105.913/105.913/0.000 ms
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
